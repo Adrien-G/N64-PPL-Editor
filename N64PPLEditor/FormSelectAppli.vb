@@ -14,4 +14,8 @@
         Form3.Show()
         Me.Close()
     End Sub
+
+    Private Sub FormSelectAppli_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        verifyExistingPath()
+    End Sub
 End Class

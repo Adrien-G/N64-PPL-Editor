@@ -6,9 +6,7 @@ Public Class Form1
     Dim FStreamPalette As IO.FileStream
 
 
-    Dim pathExtractedTexture As String = My.Application.Info.DirectoryPath & "\extractedTexture\"
-    Dim pathCompressedTexture As String = My.Application.Info.DirectoryPath & "\compressedTexture\"
-    Dim pathReplacedTexture As String = My.Application.Info.DirectoryPath & "\replacedTexture\"
+
 
 
     'load rom
