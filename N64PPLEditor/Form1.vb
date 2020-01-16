@@ -5,10 +5,6 @@ Public Class Form1
     Dim FStream As IO.FileStream
     Dim FStreamPalette As IO.FileStream
 
-
-
-
-
     'load rom
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Try
@@ -380,24 +376,6 @@ Public Class Form1
                 ' ?? (unknow texture color repartition)
             Case Convert.ToInt32(23, 16) ' RGBA : 8
                 ' ?? (unknow texture color repartition)
-                'For i = 0 To decompressedTexture.Length - 1
-                '    RGBAValues(0) = decompressedTexture(readingCursor)
-
-                '    For index = 0 To 1
-                '        Dim Red = RGBAValues(0) >> 6
-                '        Dim Green = RGBAValues(0) << 2 >> 6
-                '        Dim Blue = RGBAValues(0) << 4 >> 6
-                '        Dim Alpha = RGBAValues(0) << 6 >> 6
-                '        bmp.SetPixel(posX, posY, Color.FromArgb(Alpha * 64, Red * 64, Green * 64, Blue * 64))
-
-                '        posX += 1
-                '        If (posX = headerBFF2.sizeX) Then
-                '            posX = 0
-                '            posY += 1
-                '        End If
-                '    Next
-                '    readingCursor += 1
-                'Next
             Case Convert.ToInt32(24, 16) ' RGB:8 (greyscale,RGB shared),A:8
                 For i = 0 To decompressedTexture.Length - 3 Step 2
                     RGBAValues(0) = decompressedTexture(readingCursor)

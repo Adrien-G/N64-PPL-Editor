@@ -1,5 +1,4 @@
 ﻿Public Class CBFF2
-    Private unknownStuff As Byte = 0
     Private textureShowedLength As Byte
     Private textureType As Byte
     Private transparencyPixelIndex As Byte
