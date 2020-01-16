@@ -1,4 +1,10 @@
-﻿Public Class CSBF1
+﻿''' <summary>
+'''  The class CSBF allow to read a scene file
+'''  Author : Adrien Garreau
+'''  Date : 16/01/2020
+''' </summary>
+
+Public Class CSBF1
 
     Private nbBifComponent(3) As Byte
     Private bifNames As List(Of Byte())
@@ -47,12 +53,11 @@
         listInputScene = New List(Of InputScene)
         listTextScene = New List(Of CSBFTextScene)
         listTextureScene = New List(Of CSBFTextureScene)
+        Dim seek As Integer = 0
 
         'extract all scene one by one
         For index = 0 To convertByteArrayToInt(nbScenes)
-
             'verify if data is present... (inputScene)
-
 
             'verify if Text is present... (textScene)
 
@@ -62,10 +67,4 @@
             'get new adresse
         Next
     End Sub
-
-    Private Sub InitSBFText()
-
-    End Sub
-
-
 End Class
