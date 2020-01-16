@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form2
     Inherits System.Windows.Forms.Form
 
     'Form remplace la méthode Dispose pour nettoyer la liste des composants.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,31 +20,33 @@ Partial Class Form2
     'REMARQUE : la procédure suivante est requise par le Concepteur Windows Form
     'Elle peut être modifiée à l'aide du Concepteur Windows Form.  
     'Ne la modifiez pas à l'aide de l'éditeur de code.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.TreeView1 = New System.Windows.Forms.TreeView
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.TextBoxPPLRom = New System.Windows.Forms.TextBox
-        Me.Button1 = New System.Windows.Forms.Button
+        Me.components = New System.ComponentModel.Container()
+        Me.TreeView1 = New System.Windows.Forms.TreeView()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TextBoxPPLRom = New System.Windows.Forms.TextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Button2 = New System.Windows.Forms.Button
-        Me.Button3 = New System.Windows.Forms.Button
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Button4 = New System.Windows.Forms.Button
-        Me.Button5 = New System.Windows.Forms.Button
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.TextBox1 = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.Button6 = New System.Windows.Forms.Button
-        Me.Button7 = New System.Windows.Forms.Button
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.Button7 = New System.Windows.Forms.Button()
+        Me.Button8 = New System.Windows.Forms.Button()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -54,7 +56,7 @@ Partial Class Form2
         'TreeView1
         '
         Me.TreeView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TreeView1.Location = New System.Drawing.Point(12, 70)
         Me.TreeView1.Name = "TreeView1"
         Me.TreeView1.Size = New System.Drawing.Size(334, 594)
@@ -63,7 +65,7 @@ Partial Class Form2
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.TextBoxPPLRom)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
@@ -76,7 +78,7 @@ Partial Class Form2
         'TextBoxPPLRom
         '
         Me.TextBoxPPLRom.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBoxPPLRom.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.N64PPLEditor.My.MySettings.Default, "PPLEmpl", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.TextBoxPPLRom.Location = New System.Drawing.Point(6, 19)
         Me.TextBoxPPLRom.Name = "TextBoxPPLRom"
@@ -266,11 +268,30 @@ Partial Class Form2
         Me.Button7.Text = "Write to rom"
         Me.Button7.UseVisualStyleBackColor = False
         '
+        'Button8
+        '
+        Me.Button8.Location = New System.Drawing.Point(445, 382)
+        Me.Button8.Name = "Button8"
+        Me.Button8.Size = New System.Drawing.Size(75, 23)
+        Me.Button8.TabIndex = 14
+        Me.Button8.Text = "Button8"
+        Me.Button8.UseVisualStyleBackColor = True
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(383, 427)
+        Me.TextBox2.Multiline = True
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(153, 112)
+        Me.TextBox2.TabIndex = 15
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(663, 678)
+        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.Button8)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -287,6 +308,7 @@ Partial Class Form2
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents TreeView1 As System.Windows.Forms.TreeView
@@ -311,4 +333,6 @@ Partial Class Form2
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents Button7 As System.Windows.Forms.Button
+    Friend WithEvents Button8 As Button
+    Friend WithEvents TextBox2 As TextBox
 End Class

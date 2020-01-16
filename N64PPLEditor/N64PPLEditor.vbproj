@@ -75,7 +75,7 @@
     <Compile Include="CBFF2.vb" />
     <Compile Include="CBIFList.vb" />
     <Compile Include="CSBF1.vb" />
-    <Compile Include="CSBFHeaderScene.vb" />
+    <Compile Include="CSBFScene.vb" />
     <Compile Include="CSBFTextScene.vb" />
     <Compile Include="CSBFTextureScene.vb" />
     <Compile Include="Form1.vb">
