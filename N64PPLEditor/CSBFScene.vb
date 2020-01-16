@@ -1,5 +1,5 @@
 ﻿''' <summary>
-'''  The class CSBFScene allow to read a scene inside a SBF file 
+'''  The class CSBFScene allow to read a scene inside a SBF file (composed of input, text and texture content)
 '''  Author : Adrien Garreau
 '''  Date : 16/01/2020
 ''' </summary>

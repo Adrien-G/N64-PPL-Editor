@@ -1,4 +1,10 @@
-﻿Public Class CBIFList
+﻿''' <summary>
+'''  The class CBIFList contains and manage a list of BIF files (contains 3FIB, HVQM,SBF1, etc...)
+'''  Author : Adrien Garreau
+'''  Date : 13/01/2020
+''' </summary>
+
+Public Class CBIFList
 
 
     Private fib3childs As List(Of C3FIB)

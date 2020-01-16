@@ -1,5 +1,11 @@
 ﻿Imports System.IO
 
+''' <summary>
+'''  The class C3FIB allow to read a FIB file
+'''  Author : Adrien Garreau
+'''  Date : 13/01/2020
+''' </summary>
+
 Public Class C3FIB
     Private bff2childs As List(Of CBFF2)
     Public bifName As String

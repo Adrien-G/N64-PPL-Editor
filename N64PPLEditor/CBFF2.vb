@@ -1,4 +1,10 @@
-﻿Public Class CBFF2
+﻿''' <summary>
+'''  The class CBFF2 allow to read a FIB file
+'''  Author : Adrien Garreau
+'''  Date : 13/01/2020
+''' </summary>
+
+Public Class CBFF2
     Private textureShowedLength As Byte
     Private textureType As Byte
     Private transparencyPixelIndex As Byte

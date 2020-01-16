@@ -1,4 +1,10 @@
-﻿Public Class CSBFTextScene
+﻿''' <summary>
+'''  The class CSBFTextScene manage text in a scene
+'''  Author : Adrien Garreau
+'''  Date : 16/01/2020
+''' </summary>
+
+Public Class CSBFTextScene
 
     Public nbText(3) As Byte
     Public textLength(3) As Byte
