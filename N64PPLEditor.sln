@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "N64PPLEditor", "N64PPLEditor\N64PPLEditor.vbproj", "{515FA539-DDE7-4A02-A699-0216E6357784}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{515FA539-DDE7-4A02-A699-0216E6357784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{515FA539-DDE7-4A02-A699-0216E6357784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{515FA539-DDE7-4A02-A699-0216E6357784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{515FA539-DDE7-4A02-A699-0216E6357784}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3930F1EC-B0CA-46A6-BDA0-E7D105C96D38}
+	EndGlobalSection
+EndGlobal
