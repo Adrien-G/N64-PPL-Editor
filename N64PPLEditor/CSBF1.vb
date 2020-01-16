@@ -1,5 +1,5 @@
 ﻿''' <summary>
-'''  The class CSBF allow to read a scene file
+'''  The class CSBF allow to read a SBF file
 '''  Author : Adrien Garreau
 '''  Date : 16/01/2020
 ''' </summary>
@@ -12,16 +12,8 @@ Public Class CSBF1
     Private nbScenes(3) As Byte
     Private sizeHeaderSBF As Integer
 
-    Private listInputScene As List(Of InputScene)
-    Private listTextScene As List(Of CSBFTextScene)
-    Private listTextureScene As List(Of CSBFTextureScene)
+    'regroup all the scene present in one sbf file
 
-
-    'unknown data for now... need to explore the binary N64 PPL rom...
-    'just know enought for "estimating" size of unknow data...
-    Private Class InputScene
-
-    End Class
 
     'constructor
     Public Sub New(ByVal byteArray1 As Byte())
@@ -49,22 +41,6 @@ Public Class CSBF1
     End Sub
 
     Private Sub extractAllScenes()
-        'create Objects
-        listInputScene = New List(Of InputScene)
-        listTextScene = New List(Of CSBFTextScene)
-        listTextureScene = New List(Of CSBFTextureScene)
-        Dim seek As Integer = 0
 
-        'extract all scene one by one
-        For index = 0 To convertByteArrayToInt(nbScenes)
-            'verify if data is present... (inputScene)
-
-            'verify if Text is present... (textScene)
-
-
-            'verify if texture is present... (texture scene)
-
-            'get new adresse
-        Next
     End Sub
 End Class
