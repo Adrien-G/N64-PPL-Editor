@@ -6,25 +6,24 @@
 
 Public Class CSBFScene
 
-    'unknown data for now... need to explore the binary N64 PPL rom...
-    'just know enought for "estimating" size of unknow data...
-    Private Class InputScene
-
-    End Class
-
-
     '3 elements in one scene
-    Private listInputScene As List(Of InputScene)
-    Private listTextScene As List(Of CSBFTextScene)
-    Private listTextureScene As List(Of CSBFTextureScene)
+    Private listInputScene As List(Of CSBFSceneInput)
+    Private listTextScene As List(Of CSBFSceneText)
+    Private listTextureScene As List(Of CSBFSceneTexture)
+    Private byteArray As Byte()
+
+    'constructor
+    Public Sub New(ByVal byteArray1 As Byte())
+        byteArray = byteArray1
+    End Sub
 
     Private Sub ExtractAScene()
 
 
         'create Objects
-        listInputScene = New List(Of InputScene)
-        listTextScene = New List(Of CSBFTextScene)
-        listTextureScene = New List(Of CSBFTextureScene)
+        listInputScene = New List(Of CSBFSceneInput)
+        listTextScene = New List(Of CSBFSceneText)
+        listTextureScene = New List(Of CSBFSceneTexture)
         Dim seek As Integer = 0
 
         'verify if data is present... (inputScene)

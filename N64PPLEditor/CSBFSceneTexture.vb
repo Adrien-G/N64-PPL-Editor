@@ -4,7 +4,7 @@
 '''  Date : 16/01/2020
 ''' </summary>
 
-Public Class CSBFTextureScene
+Public Class CSBFSceneTexture
 
     Public byteArray As Byte()
 

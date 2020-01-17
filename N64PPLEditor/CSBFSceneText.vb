@@ -4,7 +4,7 @@
 '''  Date : 16/01/2020
 ''' </summary>
 
-Public Class CSBFTextScene
+Public Class CSBFSceneText
 
     Public nbText(3) As Byte
     Public textLength(3) As Byte
