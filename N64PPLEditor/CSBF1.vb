@@ -45,6 +45,15 @@ Public Class CSBF1
 
     'start extracting scenes one by one
     Private Sub ExtractAllScenes(ByVal byteArray As Byte())
+        Dim sceneSeek As Integer = sizeHeaderSBF
 
+        'create Objects
+        listScenes = New List(Of CSBFScene)
+
+        For index = 0 To convertByteArrayToInt(nbScenes)
+            listScenes.Add(New CSBFScene(byteArray))
+            listScenes(index).Init()
+            sceneSeek += listScenes(index).SizeScene()
+        Next
     End Sub
 End Class

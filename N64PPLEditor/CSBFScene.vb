@@ -8,6 +8,7 @@ Public Class CSBFScene
 
     Private sceneName As Byte()
     Private byteArray As Byte()
+    Private sceneSize As Integer
 
     '3 different elements by scene
     Private listInputScene As List(Of CSBFSceneInput)
@@ -29,13 +30,32 @@ Public Class CSBFScene
     End Sub
 
     Private Sub ExtractAScene()
-        'create Objects
-        listInputScene = New List(Of CSBFSceneInput)
-        listTextScene = New List(Of CSBFSceneText)
-        listTextureScene = New List(Of CSBFSceneTexture)
 
         Dim generalSeek As Integer = 8 + sceneName.Length
 
+        'import the Input scenes
+        listInputScene = New List(Of CSBFSceneInput)
+        ExtractSceneInput(generalSeek)
+
+        'import Text scenes
+        listTextScene = New List(Of CSBFSceneText)
+        ExtractSceneText(generalSeek)
+
+        'import Texture scenes
+        listTextureScene = New List(Of CSBFSceneTexture)
+        ExtractSceneTexture(generalSeek)
+
+        'store scene in the byte array
+        Dim tmpByteArray(generalSeek - 1) As Byte
+        Array.Copy(byteArray, 0, tmpByteArray, 0, generalSeek)
+        ReDim byteArray(generalSeek - 1)
+        byteArray = tmpByteArray
+
+        'store the size of the scene
+        sceneSize = generalSeek
+    End Sub
+
+    Private Sub ExtractSceneInput(ByRef generalSeek)
         'determine number of input in the scene
         Dim nbInputScene(3) As Byte
         Array.Copy(byteArray, generalSeek, nbInputScene, 0, 4)
@@ -55,11 +75,53 @@ Public Class CSBFScene
             Next
         End If
 
-        'verify if Text is present... (textScene)
-
-
-        'verify if texture is present... (texture scene)
-
-        'get new adresse
     End Sub
+
+    Private Sub ExtractSceneText(ByRef generalSeek)
+        'determine number of input in the scene
+        Dim nbTextScene(3) As Byte
+        Array.Copy(byteArray, generalSeek, nbTextScene, 0, 4)
+        generalSeek += 4
+
+        'import the Input scenes
+        If convertByteArrayToInt(nbTextScene) > 0 Then
+            'import input scenes
+            For index = 0 To convertByteArrayToInt(nbTextScene)
+                'create array for input item
+                Dim arraySceneText(byteArray.Length - generalSeek - 1) As Byte
+                Array.Copy(byteArray, generalSeek, arraySceneText, 0, byteArray.Length - generalSeek)
+
+                listTextScene.Add(New CSBFSceneText(arraySceneText))
+                listTextScene(index).Init()
+                generalSeek += listTextScene(index).GetSize()
+            Next
+        End If
+    End Sub
+
+    Private Sub ExtractSceneTexture(ByRef generalSeek)
+        'determine number of input in the scene
+        Dim nbTextureScene(3) As Byte
+        Array.Copy(byteArray, generalSeek, nbTextureScene, 0, 4)
+        generalSeek += 4
+
+        'import the Input scenes
+        If convertByteArrayToInt(nbTextureScene) > 0 Then
+            'import input scenes
+            For index = 0 To convertByteArrayToInt(nbTextureScene)
+                'create array for input item
+                Dim arraySceneTexture(byteArray.Length - generalSeek - 1) As Byte
+                Array.Copy(byteArray, generalSeek, arraySceneTexture, 0, byteArray.Length - generalSeek)
+
+                listTextureScene.Add(New CSBFSceneText(arraySceneTexture))
+                listTextureScene(index).Init()
+                generalSeek += listTextureScene(index).GetSize()
+            Next
+        End If
+    End Sub
+
+
+
+    Public Function SizeScene()
+        Return sceneSize
+    End Function
 End Class
