@@ -26,28 +26,34 @@ Public Class CSBFSceneInput
         If convertByteArrayToInt(nbItem) = 0 Then
             size = 4
         Else
-            ' get the "size" index for left data
-            Dim idx(3) As Byte
-            Array.Copy(byteArray, 44, idx, 0, 3)
-            Select Case convertByteArrayToInt(idx)
-                Case 0 To 2
-                    size = 56
-                Case 3 To 25
-                    size = 52
-                Case 26 To 105
-                    size = 56
-                Case 106 To 130
-                    size = 60
-                Case 131 To 170
-                    size = 56
-                Case 170 To 11000000
-                    size = 72
-                Case 11000001 To 12000000
-                    size = 80
-                Case Else
-                    size = 72
-            End Select
+            'size header
+            size += 4
+            For index = 0 To convertByteArrayToInt(nbItem)
+                'add minimum size for generic inputData
+                size += 40
 
+                ' get the "size" index for left data
+                Dim idx(3) As Byte
+                Array.Copy(byteArray, size, idx, 0, 3)
+                Select Case convertByteArrayToInt(idx)
+                    Case 0 To 2
+                        size += 8
+                    Case 3 To 25
+                        size += 4
+                    Case 26 To 105
+                        size += 8
+                    Case 106 To 130
+                        size += 12
+                    Case 131 To 170
+                        size += 8
+                    Case 170 To 11000000
+                        size += 24
+                    Case 11000001 To 12000000
+                        size += 32
+                    Case Else
+                        size += 24
+                End Select
+            Next
         End If
     End Sub
 
