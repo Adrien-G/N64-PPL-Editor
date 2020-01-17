@@ -11,6 +11,7 @@ Public Class CSBF1
     Private byteArray As Byte()
     Private nbScenes(3) As Byte
     Private sizeHeaderSBF As Integer
+    Private listScenes As List(Of CSBFScene)
 
     'regroup all the scene present in one sbf file
 
@@ -37,10 +38,13 @@ Public Class CSBF1
         Array.Copy(byteArray, 8 + (nbComponents + 1) * 16, nbScenes, 0, 4)
         sizeHeaderSBF = 12 + (nbComponents + 1) * 16
 
-        ExtractAllScenes()
+        Dim arrayWithoutHeader(byteArray.Length - sizeHeaderSBF - 1) As Byte
+        Array.Copy(byteArray, 0, arrayWithoutHeader, 0, byteArray.Length - sizeHeaderSBF)
+        ExtractAllScenes(arrayWithoutHeader)
     End Sub
 
-    Private Sub ExtractAllScenes()
+    'start extracting scenes one by one
+    Private Sub ExtractAllScenes(ByVal byteArray As Byte())
 
     End Sub
 End Class
