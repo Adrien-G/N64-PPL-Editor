@@ -46,10 +46,10 @@ Public Class C3FIB
         'remove 3fib header and send to loadBFF function
         Dim bffData(byteArray.Length - fibNameSize - 21) As Byte
         Array.Copy(byteArray, 20 + fibNameSize, bffData, 0, byteArray.Length - fibNameSize - 20)
-        loadBFF(bffData)
+        LoadBFF(bffData)
     End Sub
 
-    Private Sub loadBFF(ByVal byteArray As Byte())
+    Private Sub LoadBFF(ByVal byteArray As Byte())
         Dim sizeOfBFF2(bffCount - 1) As Integer
         Dim indexOfBFF2(bffCount - 1) As Integer
         Dim index2 = 0
@@ -81,58 +81,58 @@ Public Class C3FIB
         Next
     End Sub
 
-    Public Function getFibName() As String
+    Public Function GetFibName() As String
         Return System.Text.Encoding.UTF8.GetString(fibName)
     End Function
 
-    Public Function getBifName() As String
+    Public Function GetBifName() As String
         Return bifName
     End Function
 
-    Public Function getBffCount() As Integer
+    Public Function GetBffCount() As Integer
         Return bffCount
     End Function
 
-    Public Function getBFFData(ByVal index) As CBFF2
+    Public Function GetBFFData(ByVal index) As CBFF2
         Return bff2childs(index)
     End Function
 
-    Public Sub addBFF2(ByVal byteArray As Byte())
+    Public Sub AddBFF2(ByVal byteArray As Byte())
         bff2childs.Add(New CBFF2(byteArray))
         bff2childs(bff2childs.Count).BFF2Init()
     End Sub
 
-    Public Sub removeBFF2(ByVal index)
+    Public Sub RemoveBFF2(ByVal index)
         bff2childs.RemoveAt(index)
         bffCount -= 1
     End Sub
 
-    Public Sub replaceBFF2(ByVal index As Integer, ByVal data As Byte())
-        bff2childs(index).replaceBFF2(data)
+    Public Sub ReplaceBFF2(ByVal index As Integer, ByVal data As Byte())
+        bff2childs(index).ReplaceBFF2(data)
         bff2childs(index).BFF2Init()
     End Sub
 
-    Public Function getSize() As Integer
+    Public Function GetSize() As Integer
         If bff2childs Is Nothing Then
             Return otherByteArray.Length
         Else
             Dim sizeTotal = fibNameSize + 20
             For index = 0 To bff2childs.Count - 1
-                sizeTotal += bff2childs(index).getSize()
+                sizeTotal += bff2childs(index).GetSize()
             Next
             Return sizeTotal
 
         End If
     End Function
 
-    Public Function get3FibContainerData() As Byte()
+    Public Function Get3FibContainerData() As Byte()
         If (bff2childs Is Nothing) Then
             Return otherByteArray
         Else
             Dim bffSize As Integer = 0
             Dim bffSizeB(bffCount - 1) As Integer
             For index = 0 To bffCount - 1
-                Dim Fsize As Integer = bff2childs(index).getSize()
+                Dim Fsize As Integer = bff2childs(index).GetSize()
                 bffSize += Fsize
                 bffSizeB(index) = Fsize
             Next
@@ -143,8 +143,8 @@ Public Class C3FIB
             Dim indexBff As Integer = 20 + fibNameSize
 
             For index = 0 To bffCount - 1
-                Array.Copy(bff2childs(index).getBFFContainerData, 0, fibContainer, indexBff, bffSizeB(index))
-                indexBff += bff2childs(index).getSize()
+                Array.Copy(bff2childs(index).GetBFFContainerData, 0, fibContainer, indexBff, bffSizeB(index))
+                indexBff += bff2childs(index).GetSize()
             Next
             Return fibContainer
 

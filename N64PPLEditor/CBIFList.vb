@@ -7,14 +7,14 @@
 Public Class CBIFList
 
 
-    Private fib3childs As List(Of C3FIB)
+    Private ReadOnly fib3childs As List(Of C3FIB)
     Private nbElement As Integer
-    Private indexStartingList As Integer
-    Private indexEndingList As Integer
-    Private fstream As IO.FileStream
+    Private ReadOnly indexStartingList As Integer
+    Private ReadOnly indexEndingList As Integer
+    Private ReadOnly fstream As IO.FileStream
 
-    Private index3FIB As Integer()
-    Private size3FIB As Integer()
+    Private ReadOnly index3FIB As Integer()
+    Private ReadOnly size3FIB As Integer()
 
     'constructor
     Public Sub New(ByVal indexStartingList1 As Integer, ByVal indexEndingList1 As Integer, ByVal numberElement As Integer, ByVal fstream2 As IO.FileStream)
@@ -27,7 +27,7 @@ Public Class CBIFList
         fib3childs = New List(Of C3FIB)
     End Sub
 
-    Public Sub load3FIBList()
+    Public Sub Load3FIBList()
         fstream.Position = indexStartingList
         Dim index3FIBlocal(3) As Byte
         Dim size3FIBlocal(3) As Byte
@@ -74,11 +74,11 @@ Public Class CBIFList
         Return fib3childs(index)
     End Function
 
-    Public Function getSize()
+    Public Function GetSize()
         Dim totalSize As Integer = 0
         For index = 0 To nbElement - 1
-            totalSize += fib3childs(index).getSize()
-            If (fib3childs(index).getSize() Mod 2 = 1) Then
+            totalSize += fib3childs(index).GetSize()
+            If (fib3childs(index).GetSize() Mod 2 = 1) Then
                 totalSize += 1
             End If
         Next
@@ -87,24 +87,24 @@ Public Class CBIFList
         Return totalSize
     End Function
 
-    Public Function getNbItem() As Integer
+    Public Function GetNbItem() As Integer
         Return nbElement
     End Function
 
-    Public Sub remove3fib(ByVal index As Integer)
+    Public Sub Remove3fib(ByVal index As Integer)
         nbElement -= 1
         fib3childs.RemoveAt(index)
     End Sub
 
-    Public Sub removebff2(ByVal index3fib As Integer, ByVal indexbff As Integer)
-        fib3childs(index3fib).removeBFF2(indexbff)
+    Public Sub Removebff2(ByVal index3fib As Integer, ByVal indexbff As Integer)
+        fib3childs(index3fib).RemoveBFF2(indexbff)
     End Sub
 
-    Public Sub replaceBFF2(ByVal fibIndex As Integer, ByVal bffIndex As Integer, ByVal data As Byte())
-        fib3childs(fibIndex).replaceBFF2(bffIndex, data)
+    Public Sub ReplaceBFF2(ByVal fibIndex As Integer, ByVal bffIndex As Integer, ByVal data As Byte())
+        fib3childs(fibIndex).ReplaceBFF2(bffIndex, data)
     End Sub
 
-    Public Sub writeAllData()
+    Public Sub WriteAllData()
         fstream.Position = indexStartingList - 4
 
         'write number of elements
@@ -119,7 +119,7 @@ Public Class CBIFList
         'write list header
         For index = 0 To nbElement - 1
             'write size
-            Dim sizeFib = BitConverter.GetBytes(fib3childs(index).getSize())
+            Dim sizeFib = BitConverter.GetBytes(fib3childs(index).GetSize())
             If BitConverter.IsLittleEndian Then
                 Array.Reverse(sizeFib)
             End If
@@ -127,8 +127,8 @@ Public Class CBIFList
 
             'write index start
             Dim emplFib As Byte() = BitConverter.GetBytes(indexData)
-            indexData += fib3childs(index).getSize()
-            If (fib3childs(index).getSize() Mod 2 = 1) Then
+            indexData += fib3childs(index).GetSize()
+            If (fib3childs(index).GetSize() Mod 2 = 1) Then
                 indexData += 1
             End If
 
@@ -138,7 +138,7 @@ Public Class CBIFList
             fstream.Write(emplFib, 0, 4)
 
             'write name of BIF
-            Dim nameBIF As Byte() = System.Text.Encoding.UTF8.GetBytes(fib3childs(index).getBifName())
+            Dim nameBIF As Byte() = System.Text.Encoding.UTF8.GetBytes(fib3childs(index).GetBifName())
             fstream.Write(nameBIF, 0, nameBIF.Length)
             For index2 = 0 To 16 - nameBIF.Length - 1
                 fstream.WriteByte(0)
@@ -147,10 +147,10 @@ Public Class CBIFList
 
         'write 3fib data
         For index = 0 To nbElement - 1
-            Dim fibContainer As Byte() = fib3childs(index).get3FibContainerData()
+            Dim fibContainer As Byte() = fib3childs(index).Get3FibContainerData()
             fstream.Write(fibContainer, 0, fibContainer.Length)
             'the size of 3fib must be pair for unknown reason..
-            If (fib3childs(index).getSize() Mod 2 = 1) Then
+            If (fib3childs(index).GetSize() Mod 2 = 1) Then
                 fstream.WriteByte(255)
             End If
         Next

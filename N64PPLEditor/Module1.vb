@@ -15,7 +15,7 @@ Module Module1
         Return FinalNumber
     End Function
 
-    Public Sub verifyExistingPath()
+    Public Sub VerifyExistingPath()
         If Not File.Exists(pathExtractedTexture) Then
             Directory.CreateDirectory(pathExtractedTexture)
         End If

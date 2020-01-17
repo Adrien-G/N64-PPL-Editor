@@ -8,13 +8,13 @@ Public Class CBFF2
     Private textureShowedLength As Byte
     Private textureType As Byte
     Private transparencyPixelIndex As Byte
-    Private textureWidth(1) As Byte
-    Private texturePixelWidth(1) As Byte
-    Private textureHeigth(1) As Byte
-    Private instructionLineLength(3) As Byte
+    Private ReadOnly textureWidth(1) As Byte
+    Private ReadOnly texturePixelWidth(1) As Byte
+    Private ReadOnly textureHeigth(1) As Byte
+    Private ReadOnly instructionLineLength(3) As Byte
     Private nameLength As Byte
     Private name As Byte()
-    Private compressedTexture As Boolean = True
+    Private ReadOnly compressedTexture As Boolean = True
 
     Private byteArray As Byte()
     Private bffHeader As Byte()
@@ -64,20 +64,20 @@ Public Class CBFF2
 
     End Sub
 
-    Public Function getBFFName() As String
+    Public Function GetBFFName() As String
         Return System.Text.Encoding.UTF8.GetString(name)
     End Function
 
-    Public Function getSize() As Integer
+    Public Function GetSize() As Integer
         Return byteArray.Length
     End Function
 
-    Public Sub replaceBFF2(ByVal data As Byte())
+    Public Sub ReplaceBFF2(ByVal data As Byte())
         ReDim byteArray(data.Length - 1)
         byteArray = data
     End Sub
 
-    Public Function getBFFContainerData() As Byte()
+    Public Function GetBFFContainerData() As Byte()
         Return byteArray
     End Function
 End Class

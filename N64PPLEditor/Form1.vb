@@ -22,7 +22,7 @@ Public Class Form1
     Public Function readBFF2Name(ByVal fstream2 As IO.FileStream, ByVal position As String)
         Dim tmpPos = fstream2.Position
         Dim nameSize As Byte
-        Dim nameF As String = ""
+        Dim nameF As String
 
         'get length of title
         fstream2.Position = position + 23
@@ -79,7 +79,7 @@ Public Class Form1
         Return sizeBFF
     End Function
 
-    Public Structure dataHeader
+    Public Structure DataHeader
         Public BFFName As String
         Public nameLength As Integer
         Public texturePrintedLength As Byte
@@ -96,8 +96,8 @@ Public Class Form1
         Public globalIdent As Integer
     End Structure
 
-    Public Function readBFF2Header(ByVal fstream2 As IO.FileStream, ByVal positionStartBFF2 As String) As dataHeader
-        Dim HeaderBFF2 As New dataHeader
+    Public Function ReadBFF2Header(ByVal fstream2 As IO.FileStream, ByVal positionStartBFF2 As String) As DataHeader
+        Dim HeaderBFF2 As New DataHeader
 
         fstream2.Position = Convert.ToInt32(positionStartBFF2, 16) + 8
         HeaderBFF2.texturePrintedLength = fstream2.ReadByte()
@@ -165,7 +165,7 @@ Public Class Form1
         'read nameSize for finding index of palette...
         fstream2.Position += 7
         Dim sizeName = fstream2.ReadByte()
-        Dim nameF As String = ""
+        Dim nameF As String
         Dim nameFile(sizeName - 1) As Byte
         fstream2.Read(nameFile, 0, sizeName)
         nameF = System.Text.Encoding.UTF8.GetString(nameFile)
@@ -190,7 +190,7 @@ Public Class Form1
         Return HeaderBFF2
     End Function
 
-    Public Function getColorFromPalette(ByVal position As Int32) As Byte()
+    Public Function GetColorFromPalette(ByVal position As Int32) As Byte()
         Dim tabPixel(3) As Byte
         Dim initPos = FStreamPalette.Position
         FStreamPalette.Position += position * 4
@@ -200,7 +200,7 @@ Public Class Form1
         Return tabPixel
     End Function
 
-    Public Function selectorGoodValue(ByVal readedByte) As Byte()
+    Public Function SelectorGoodValue(ByVal readedByte) As Byte()
         Dim tab(1) As Byte
         If (readedByte >= 128 And readedByte <= 135) Then
             tab(0) = 1
@@ -233,26 +233,26 @@ Public Class Form1
         Return tab
     End Function
 
-    Public Sub readUncompressedContent(ByRef cursorCompressed, ByVal compressedTexture, ByVal nbByteToRead, ByRef cursorDecompressed, ByRef decompressedTexture, ByVal headerBFF2)
+    Public Sub ReadUncompressedContent(ByRef cursorCompressed, ByVal compressedTexture, ByVal nbByteToRead, ByRef cursorDecompressed, ByRef decompressedTexture, ByVal headerBFF2)
         cursorCompressed += 1
         Dim tabPixel(3) As Byte
 
         For counter = 0 To nbByteToRead
             If headerBFF2.indexedColor Then
                 If headerBFF2.textureType = Convert.ToInt32(33, 16) Then
-                    tabPixel = getColorFromPalette(compressedTexture(cursorCompressed))
+                    tabPixel = GetColorFromPalette(compressedTexture(cursorCompressed))
                     'extract texture pixel from palette
                     For index = 0 To 3
                         decompressedTexture(cursorDecompressed + index) = tabPixel(index)
                     Next
                     cursorDecompressed += 4
                 Else
-                    tabPixel = getColorFromPalette(compressedTexture(cursorCompressed) / 16)
+                    tabPixel = GetColorFromPalette(compressedTexture(cursorCompressed) / 16)
 
                     For index = 0 To 3
                         decompressedTexture(cursorDecompressed + index) = tabPixel(index)
                     Next
-                    tabPixel = getColorFromPalette(compressedTexture(cursorCompressed) Mod 16)
+                    tabPixel = GetColorFromPalette(compressedTexture(cursorCompressed) Mod 16)
                     For index = 0 To 3
                         decompressedTexture(cursorDecompressed + index + 4) = tabPixel(index)
                     Next
@@ -266,7 +266,7 @@ Public Class Form1
         Next
     End Sub
 
-    Public Sub readCompressedContent(ByRef cursorCompressed, ByVal compressedTexture, ByVal totalQtPaquet, ByVal totalMultiplicator, ByRef cursorDecompressed, ByRef decompressedTexture, ByVal headerBFF2)
+    Public Sub ReadCompressedContent(ByRef cursorCompressed, ByVal compressedTexture, ByVal totalQtPaquet, ByVal totalMultiplicator, ByRef cursorDecompressed, ByRef decompressedTexture, ByVal headerBFF2)
         cursorCompressed += 1
         Dim tabPixel(3) As Byte
         For multiplicator = 0 To totalMultiplicator - 1
@@ -274,24 +274,24 @@ Public Class Form1
                 'If bytePerPixel = 1 Then
                 If headerBFF2.indexedColor Then
                     If headerBFF2.textureType = Convert.ToInt32(33, 16) Then
-                        tabPixel = getColorFromPalette(compressedTexture(cursorCompressed + qtPaquet))
+                        tabPixel = GetColorFromPalette(compressedTexture(cursorCompressed + qtPaquet))
                         'extract texture pixel from palette
                         For index = 0 To 3
                             decompressedTexture(cursorDecompressed + index) = tabPixel(index)
                         Next
                         cursorDecompressed += 4
                     Else
-                        tabPixel = getColorFromPalette(compressedTexture(cursorCompressed + qtPaquet) / 16)
+                        tabPixel = GetColorFromPalette(compressedTexture(cursorCompressed + qtPaquet) / 16)
                         For index = 0 To 3
                             decompressedTexture(cursorDecompressed + index) = tabPixel(index)
                         Next
-                        tabPixel = getColorFromPalette(compressedTexture(cursorCompressed + qtPaquet) Mod 16)
+                        tabPixel = GetColorFromPalette(compressedTexture(cursorCompressed + qtPaquet) Mod 16)
                         For index = 0 To 3
                             decompressedTexture(cursorDecompressed + index + 4) = tabPixel(index)
                         Next
                         cursorDecompressed += 8
                     End If
-                    
+
                 Else
                     decompressedTexture(cursorDecompressed) = compressedTexture(cursorCompressed + qtPaquet)
                     cursorDecompressed += 1
@@ -302,7 +302,7 @@ Public Class Form1
     End Sub
 
     'a few data were not compressed...
-    Public Function loadUncompressedData(ByVal headerBFF2 As dataHeader, ByVal textureSize As Int32) As Byte()
+    Public Function LoadUncompressedData(ByVal headerBFF2 As DataHeader, ByVal textureSize As Int32) As Byte()
         'load final texture
         Dim texture(headerBFF2.sizeX * headerBFF2.sizeY * headerBFF2.bytesPerPixel) As Byte
 
@@ -316,7 +316,7 @@ Public Class Form1
 
             For index = 0 To textureSize - 1
                 Dim tabPixel(3) As Byte
-                tabPixel = getColorFromPalette(textureIndexed(index))
+                tabPixel = GetColorFromPalette(textureIndexed(index))
                 texture(0 + 4 * index) = tabPixel(0)
                 texture(1 + 4 * index) = tabPixel(1)
                 texture(2 + 4 * index) = tabPixel(2)
@@ -329,9 +329,9 @@ Public Class Form1
         Return texture
     End Function
 
-    Private Function decompressTexture(ByVal headerBFF2 As dataHeader, ByVal textureSize As Int32) As Byte()
+    Private Function DecompressTexture(ByVal headerBFF2 As DataHeader, ByVal textureSize As Int32) As Byte()
         If Not headerBFF2.isCompressed Then
-            Return loadUncompressedData(headerBFF2, textureSize)
+            Return LoadUncompressedData(headerBFF2, textureSize)
         End If
 
         FStream.Position = headerBFF2.startingDataPos
@@ -349,12 +349,12 @@ Public Class Form1
         Try
             Do
                 If compressedTexture(cursorCompressed) < 128 Then
-                    readUncompressedContent(cursorCompressed, compressedTexture, compressedTexture(cursorCompressed), cursorDecompressed, decompressedTexture, headerBFF2)
+                    ReadUncompressedContent(cursorCompressed, compressedTexture, compressedTexture(cursorCompressed), cursorDecompressed, decompressedTexture, headerBFF2)
                 Else
-                    nibbleValues = selectorGoodValue(compressedTexture(cursorCompressed))
+                    nibbleValues = SelectorGoodValue(compressedTexture(cursorCompressed))
                     nibble1 = nibbleValues(0)
                     nibble2 = nibbleValues(1)
-                    readCompressedContent(cursorCompressed, compressedTexture, nibble1, nibble2, cursorDecompressed, decompressedTexture, headerBFF2)
+                    ReadCompressedContent(cursorCompressed, compressedTexture, nibble1, nibble2, cursorDecompressed, decompressedTexture, headerBFF2)
                 End If
             Loop While cursorCompressed < textureSize - 1
         Catch ex As Exception
@@ -363,7 +363,7 @@ Public Class Form1
         Return decompressedTexture
     End Function
 
-    Private Sub loadTexture(ByVal decompressedTexture As Byte(), ByVal headerBFF2 As dataHeader)
+    Private Sub LoadTexture(ByVal decompressedTexture As Byte(), ByVal headerBFF2 As DataHeader)
         Dim bmp = New Bitmap(headerBFF2.sizeX, headerBFF2.sizeY)
         Dim readingCursor As Int32 = 0
         Dim posX As Int32 = 0
@@ -461,7 +461,7 @@ Public Class Form1
     End Sub
 
     Private Sub TreeView1_AfterSelect(ByVal sender As System.Object, ByVal e As System.Windows.Forms.TreeViewEventArgs) Handles TreeView1.AfterSelect
-        Dim headerBFF2 As dataHeader = readBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
+        Dim headerBFF2 As DataHeader = ReadBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
         Label2.Text = Hex(headerBFF2.bytesPerPixel)
         Label4.Text = Hex(headerBFF2.paletteSize)
         Label6.Text = Hex(headerBFF2.startingPalettePos)
@@ -474,10 +474,10 @@ Public Class Form1
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        Dim headerBFF2 = readBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
+        Dim headerBFF2 = ReadBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
         FormLoading.Show()
-        Dim decompressedTexture = decompressTexture(headerBFF2, getBFFSize(Hex(headerBFF2.startingDataPos)))
-        loadTexture(decompressedTexture, headerBFF2)
+        Dim decompressedTexture = DecompressTexture(headerBFF2, getBFFSize(Hex(headerBFF2.startingDataPos)))
+        LoadTexture(decompressedTexture, headerBFF2)
         FormLoading.Hide()
     End Sub
 
@@ -488,9 +488,9 @@ Public Class Form1
     End Sub
 
     Private Sub Timer2_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer2.Tick
-        Dim headerBFF2 = readBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
-        Dim decompressedTexture = decompressTexture(headerBFF2, getBFFSize(Hex(headerBFF2.startingDataPos)))
-        loadTexture(decompressedTexture, headerBFF2)
+        Dim headerBFF2 = ReadBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
+        Dim decompressedTexture = DecompressTexture(headerBFF2, getBFFSize(Hex(headerBFF2.startingDataPos)))
+        LoadTexture(decompressedTexture, headerBFF2)
         If TreeView1.SelectedNode.Index < TreeView1.Nodes.Count - 1 Then
             Button4.Text = TreeView1.SelectedNode.Index & "/" & TreeView1.Nodes.Count
             TreeView1.SelectedNode = TreeView1.Nodes(TreeView1.SelectedNode.Index + 1)
@@ -503,9 +503,7 @@ Public Class Form1
         End If
     End Sub
 
-    Public Function findGreenAlpha() As Integer
-        Dim posX = 0
-        Dim posY = 0
+    Public Function FindGreenAlpha() As Integer
         Dim bmp = New Bitmap(PictureBox1.Width, PictureBox1.Height)
         Dim palette(PictureBox1.Width * PictureBox1.Height) As Color
         Dim color As Color
@@ -536,7 +534,7 @@ Public Class Form1
     End Function
 
     'Dim Headerdata(27 + BFFHeaderInfo.nameLength) As Byte
-    Private Sub AddCompressorHeader(ByRef memoryTexture As MemoryStream, ByVal BFFHeaderInfo As dataHeader)
+    Private Sub AddCompressorHeader(ByRef memoryTexture As MemoryStream, ByVal BFFHeaderInfo As DataHeader)
         'write BFF Header
         For index = 0 To 7
             memoryTexture.WriteByte(0)
@@ -561,7 +559,7 @@ Public Class Form1
         Dim nibble4 = 10
 
         If (BFFHeaderInfo.textureType = Convert.ToInt32(32, 16) Or BFFHeaderInfo.textureType = Convert.ToInt32(33, 16)) Then
-            Dim greenColorIndex As Byte = findGreenAlpha()
+            Dim greenColorIndex As Byte = FindGreenAlpha()
             nibble2 = greenColorIndex / 16
             nibble3 = greenColorIndex Mod 16
         End If
@@ -627,7 +625,7 @@ Public Class Form1
 
     End Sub
 
-    Public Function getIndexFromColorPalette(ByVal paletteColors As Color(), ByVal searchedColor As Color) As Integer
+    Public Function GetIndexFromColorPalette(ByVal paletteColors As Color(), ByVal searchedColor As Color) As Integer
         For index = 0 To paletteColors.Length - 1
             If (searchedColor.R = paletteColors(index).R And searchedColor.G = paletteColors(index).G And searchedColor.B = paletteColors(index).B And searchedColor.A = paletteColors(index).A) Then
                 Return index
@@ -636,7 +634,7 @@ Public Class Form1
         Return 0
     End Function
 
-    Private Function fillGoodFormatInMemory(ByVal decompressedTextureAsPicture As System.Drawing.Image, ByVal bffHeader As dataHeader, Optional ByVal palette As Color() = Nothing) As Byte()
+    Private Function FillGoodFormatInMemory(ByVal decompressedTextureAsPicture As System.Drawing.Image, ByVal bffHeader As DataHeader, Optional ByVal palette As Color() = Nothing) As Byte()
         Dim totalSizeTex = PictureBox1.Width * PictureBox1.Height * bffHeader.bytesPerPixel
         Dim dataSource(totalSizeTex) As Byte
 
@@ -673,7 +671,7 @@ Public Class Form1
 
                 For index = 0 To PictureBox1.Width * PictureBox1.Height - 1
                     Dim pixel As Color = bmp.GetPixel(posX, posY)
-                    Dim a = getIndexFromColorPalette(palette, pixel)
+                    Dim a = GetIndexFromColorPalette(palette, pixel)
                     dataSource(index) = a
 
                     posX += 1
@@ -733,7 +731,7 @@ Public Class Form1
         Return dataSource
     End Function
 
-    Private Function checkSameArray(ByVal array, ByVal size, ByVal index1, ByVal index2) As Boolean
+    Private Function CheckSameArray(ByVal array, ByVal size, ByVal index1, ByVal index2) As Boolean
         For increm = 0 To size - 1
             If (array(index1 + increm) <> array(index2 + increm)) Then
                 Return False
@@ -770,7 +768,7 @@ Public Class Form1
         Return finalByte
     End Function
 
-    Private Sub writeCompressedStream(ByRef compressedTexture, ByRef textureByte, ByVal indexGlobal, ByVal QtOctetLu, Optional ByVal QtRepetition = 0)
+    Private Sub WriteCompressedStream(ByRef compressedTexture, ByRef textureByte, ByVal indexGlobal, ByVal QtOctetLu, Optional ByVal QtRepetition = 0)
         If QtRepetition = 0 Then
             'not compressed part
             compressedTexture.writeByte(QtOctetLu - 1)
@@ -782,9 +780,7 @@ Public Class Form1
         End If
     End Sub
 
-    Public Function addHeaderPalette(ByRef memoryTexture As MemoryStream) As Color()
-        Dim posX = 0
-        Dim posY = 0
+    Public Function AddHeaderPalette(ByRef memoryTexture As MemoryStream) As Color()
         Dim bmp = New Bitmap(PictureBox1.Width, PictureBox1.Height)
         Dim palette(PictureBox1.Width * PictureBox1.Height) As Color
         Dim color As Color
@@ -831,7 +827,7 @@ Public Class Form1
         Return palette
     End Function
 
-    Private Sub PerformCompressionTask(ByVal texture As System.Drawing.Image, ByVal BFFHeaderInfo As dataHeader)
+    Private Sub PerformCompressionTask(ByVal texture As System.Drawing.Image, ByVal BFFHeaderInfo As DataHeader)
 
         'create a 20Mo memory storage...
         Dim compressedTexture As New MemoryStream(1024 * 1024 * 20)
@@ -841,10 +837,10 @@ Public Class Form1
 
         Dim textureByte As Byte()
         If (BFFHeaderInfo.textureType = Convert.ToInt32(32, 16) Or BFFHeaderInfo.textureType = Convert.ToInt32(33, 16)) Then
-            Dim palette = addHeaderPalette(compressedTexture)
-            textureByte = fillGoodFormatInMemory(texture, BFFHeaderInfo, palette)
+            Dim palette = AddHeaderPalette(compressedTexture)
+            textureByte = FillGoodFormatInMemory(texture, BFFHeaderInfo, palette)
         Else
-            textureByte = fillGoodFormatInMemory(texture, BFFHeaderInfo)
+            textureByte = FillGoodFormatInMemory(texture, BFFHeaderInfo)
         End If
 
         'compress texture
@@ -881,7 +877,7 @@ Public Class Form1
                     End If
 
                     'compare both array
-                    If Not (checkSameArray(textureByte, boundSize, bound1Index, bound2Index)) Then
+                    If Not (CheckSameArray(textureByte, boundSize, bound1Index, bound2Index)) Then
                         sameArray = False
                     End If
 
@@ -900,15 +896,15 @@ Public Class Form1
                 lonelyPixelCount += 1
                 indexGlobal += 1
                 If lonelyPixelCount = 128 Then
-                    writeCompressedStream(compressedTexture, textureByte, indexGlobal, lonelyPixelCount)
+                    WriteCompressedStream(compressedTexture, textureByte, indexGlobal, lonelyPixelCount)
                     lonelyPixelCount = 0
                 End If
             Else
                 If lonelyPixelCount > 0 Then
-                    writeCompressedStream(compressedTexture, textureByte, indexGlobal, lonelyPixelCount)
+                    WriteCompressedStream(compressedTexture, textureByte, indexGlobal, lonelyPixelCount)
                     lonelyPixelCount = 0
                 End If
-                writeCompressedStream(compressedTexture, textureByte, indexGlobal, maxiQtOctetLu, maxiQtRepetition)
+                WriteCompressedStream(compressedTexture, textureByte, indexGlobal, maxiQtOctetLu, maxiQtRepetition)
                 indexGlobal += maxiQtOctetLu * maxiQtRepetition
             End If
             maxiQtOctetLu = 0
@@ -916,14 +912,14 @@ Public Class Form1
         Loop While indexGlobal < textureByte.Length
 
         If lonelyPixelCount > 0 Then
-            writeCompressedStream(compressedTexture, textureByte, indexGlobal, lonelyPixelCount)
+            WriteCompressedStream(compressedTexture, textureByte, indexGlobal, lonelyPixelCount)
         End If
 
         My.Computer.FileSystem.WriteAllBytes(pathCompressedTexture & BFFHeaderInfo.globalIdent & "," & BFFHeaderInfo.BFFName & ".ppltexture", compressedTexture.ToArray, False)
     End Sub
 
     Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
-        Dim bffHeaderInfo As dataHeader = readBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
+        Dim bffHeaderInfo As DataHeader = ReadBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
         Dim bmp
         Dim errorInLoad = False
         Try
@@ -944,7 +940,7 @@ Public Class Form1
     End Sub
 
     Private Sub Timer3_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer3.Tick
-        Dim bffHeaderInfo As dataHeader = readBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
+        Dim bffHeaderInfo As DataHeader = ReadBFF2Header(FStream, Split(TreeView1.SelectedNode.Text, ",")(1))
         Dim bmp
         Dim errorInLoad = False
         Try
@@ -974,7 +970,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
-        Dim bffHeaderInfo As dataHeader
+        Dim bffHeaderInfo As DataHeader
         Dim openFileDialog1 As New OpenFileDialog()
         openFileDialog1.InitialDirectory = pathReplacedTexture
         openFileDialog1.Filter = "png file (*.png)|*.png|bmp file (*.bmp)|*.bmp"

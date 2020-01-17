@@ -27,7 +27,7 @@ Public Class Form2
         End Try
     End Sub
 
-    Public Function readHeader(ByVal fstream2 As IO.FileStream, ByVal nameHeader As String, ByVal position As String) As String
+    Public Function ReadHeader(ByVal fstream2 As IO.FileStream, ByVal nameHeader As String, ByVal position As String) As String
         Dim tmpPos = fstream2.Position
         Dim nameSize As Byte
         Dim name As String = ""
@@ -71,20 +71,20 @@ Public Class Form2
         Return name
     End Function
 
-    Public Sub operateArray(ByVal indexPos)
+    Public Sub OperateArray(ByVal indexPos)
         FStream.Position = indexPos
         Dim nbElement(3) As Byte
         FStream.Read(nbElement, 0, 4)
         fibStorage = New CBIFList(FStream.Position, endRessourceIndex, convertByteArrayToInt(nbElement), FStream)
-        fibStorage.load3FIBList()
+        fibStorage.Load3FIBList()
         fibStorage.Set3fibChunks()
-        For index = 0 To fibStorage.getNbItem - 1
-            TreeView1.Nodes.Add(fibStorage.Get3FIBData(index).getFibName)
-            For index2 = 0 To fibStorage.Get3FIBData(index).getBffCount() - 1
-                TreeView1.Nodes(index).Nodes.Add(fibStorage.Get3FIBData(index).getBFFData(index2).getBFFName())
+        For index = 0 To fibStorage.GetNbItem - 1
+            TreeView1.Nodes.Add(fibStorage.Get3FIBData(index).GetFibName)
+            For index2 = 0 To fibStorage.Get3FIBData(index).GetBffCount() - 1
+                TreeView1.Nodes(index).Nodes.Add(fibStorage.Get3FIBData(index).GetBFFData(index2).GetBFFName())
             Next
         Next
-        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.getSize())
+        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.GetSize())
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
@@ -111,16 +111,16 @@ Public Class Form2
         If sizeRead > 0 And endRessourceIndex = 0 Then
             Timer1.Start()
         Else
-            operateArray(startRessourcesIndex)
+            OperateArray(startRessourcesIndex)
             FormLoading.Close()
             TreeView1.SelectedNode = TreeView1.Nodes(0)
         End If
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        fibStorage.remove3fib(TreeView1.SelectedNode.Index)
+        fibStorage.Remove3fib(TreeView1.SelectedNode.Index)
         TreeView1.SelectedNode.Remove()
-        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.getSize())
+        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.GetSize())
     End Sub
 
     Private Sub TreeView1_AfterSelect(ByVal sender As System.Object, ByVal e As System.Windows.Forms.TreeViewEventArgs) Handles TreeView1.AfterSelect
@@ -135,7 +135,7 @@ Public Class Form2
         End If
     End Sub
 
-    Private Function askFileToUser() As Byte()
+    Private Function AskFileToUser() As Byte()
         Dim openFileDialog1 As New OpenFileDialog()
         openFileDialog1.InitialDirectory = pathCompressedTexture
         openFileDialog1.Filter = "ppl compressed texture (*.ppltexture)|*.ppltexture"
@@ -154,37 +154,37 @@ Public Class Form2
     End Function
 
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
-        Dim dataBytes As Byte() = askFileToUser()
-        fibStorage.replaceBFF2(TreeView1.SelectedNode.Parent.Index, TreeView1.SelectedNode.Index, dataBytes)
-        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.getSize())
+        Dim dataBytes As Byte() = AskFileToUser()
+        fibStorage.ReplaceBFF2(TreeView1.SelectedNode.Parent.Index, TreeView1.SelectedNode.Index, dataBytes)
+        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.GetSize())
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
 
-        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.getSize())
+        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.GetSize())
     End Sub
 
     Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
-        fibStorage.removebff2(TreeView1.SelectedNode.Parent.Index, TreeView1.SelectedNode.Index)
+        fibStorage.Removebff2(TreeView1.SelectedNode.Parent.Index, TreeView1.SelectedNode.Index)
         TreeView1.SelectedNode.Remove()
-        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.getSize())
+        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.GetSize())
     End Sub
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
         If TreeView1.SelectedNode.Level = 0 Then
             TreeView1.SelectedNode.Nodes.Add("(empty)")
             TreeView1.SelectedNode.Expand()
-            Dim dataBytes As Byte() = askFileToUser()
-            fibStorage.replaceBFF2(TreeView1.SelectedNode.Index, TreeView1.SelectedNode.Nodes(TreeView1.SelectedNode.Nodes.Count - 1).Index, dataBytes)
+            Dim dataBytes As Byte() = AskFileToUser()
+            fibStorage.ReplaceBFF2(TreeView1.SelectedNode.Index, TreeView1.SelectedNode.Nodes(TreeView1.SelectedNode.Nodes.Count - 1).Index, dataBytes)
         Else
             TreeView1.Nodes(TreeView1.SelectedNode.Parent.Index).Nodes.Add("(empty)")
-            Dim dataBytes As Byte() = askFileToUser()
-            fibStorage.replaceBFF2(TreeView1.SelectedNode.Parent.Index, TreeView1.SelectedNode.Index, dataBytes)
+            Dim dataBytes As Byte() = AskFileToUser()
+            fibStorage.ReplaceBFF2(TreeView1.SelectedNode.Parent.Index, TreeView1.SelectedNode.Index, dataBytes)
         End If
     End Sub
 
     Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
-        fibStorage.writeAllData()
+        fibStorage.WriteAllData()
         Button7.BackColor = Color.LimeGreen
     End Sub
 End Class

@@ -16,6 +16,6 @@
     End Sub
 
     Private Sub FormSelectAppli_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        verifyExistingPath()
+        VerifyExistingPath()
     End Sub
 End Class

@@ -37,10 +37,10 @@ Public Class CSBF1
         Array.Copy(byteArray, 8 + (nbComponents + 1) * 16, nbScenes, 0, 4)
         sizeHeaderSBF = 12 + (nbComponents + 1) * 16
 
-        extractAllScenes()
+        ExtractAllScenes()
     End Sub
 
-    Private Sub extractAllScenes()
+    Private Sub ExtractAllScenes()
 
     End Sub
 End Class

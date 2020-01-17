@@ -18,7 +18,7 @@ Public Class CSBFScene
     Private listTextScene As List(Of CSBFTextScene)
     Private listTextureScene As List(Of CSBFTextureScene)
 
-    Private Sub extractAScene()
+    Private Sub ExtractAScene()
 
 
         'create Objects
