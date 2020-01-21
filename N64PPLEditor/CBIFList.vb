@@ -70,6 +70,10 @@ Public Class CBIFList
         Next
     End Sub
 
+    Public Sub fillRawData(ByVal index As Integer, ByVal data As Byte())
+        fib3childs(index).fillRawData(data)
+    End Sub
+
     Public Function Get3FIBData(ByVal index) As C3FIB
         Return fib3childs(index)
     End Function
@@ -159,9 +163,9 @@ Public Class CBIFList
             Dim freeSpace(sizeLeft - 1) As Byte
             fstream.Write(freeSpace, 0, freeSpace.Length)
         End If
-
-
     End Sub
 
-
+    Friend Function GetRawData(index As Integer) As Byte()
+        Return fib3childs(index).GetRawData()
+    End Function
 End Class

@@ -30,7 +30,6 @@ Partial Class Form2
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -40,17 +39,17 @@ Partial Class Form2
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Button9 = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'TreeView1
@@ -111,22 +110,12 @@ Partial Class Form2
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(6, 48)
+        Me.Button2.Location = New System.Drawing.Point(6, 19)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(127, 23)
         Me.Button2.TabIndex = 6
         Me.Button2.Text = "Remove this container"
         Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Enabled = False
-        Me.Button3.Location = New System.Drawing.Point(6, 19)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(127, 23)
-        Me.Button3.TabIndex = 7
-        Me.Button3.Text = "Add container"
-        Me.Button3.UseVisualStyleBackColor = True
         '
         'GroupBox2
         '
@@ -208,41 +197,20 @@ Partial Class Form2
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.TextBox1)
-        Me.GroupBox3.Controls.Add(Me.Label7)
-        Me.GroupBox3.Controls.Add(Me.Button3)
         Me.GroupBox3.Controls.Add(Me.Button2)
         Me.GroupBox3.Location = New System.Drawing.Point(352, 143)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(298, 79)
+        Me.GroupBox3.Size = New System.Drawing.Size(232, 49)
         Me.GroupBox3.TabIndex = 11
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Manage container (can hold multiple texture)"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Location = New System.Drawing.Point(189, 21)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox1.TabIndex = 9
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Enabled = False
-        Me.Label7.Location = New System.Drawing.Point(139, 24)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(44, 13)
-        Me.Label7.TabIndex = 8
-        Me.Label7.Text = "Name : "
         '
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.Button6)
         Me.GroupBox4.Controls.Add(Me.Button5)
         Me.GroupBox4.Controls.Add(Me.Button4)
-        Me.GroupBox4.Location = New System.Drawing.Point(352, 228)
+        Me.GroupBox4.Location = New System.Drawing.Point(352, 198)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(183, 121)
         Me.GroupBox4.TabIndex = 12
@@ -270,28 +238,39 @@ Partial Class Form2
         '
         'Button8
         '
-        Me.Button8.Location = New System.Drawing.Point(445, 382)
+        Me.Button8.Location = New System.Drawing.Point(6, 48)
         Me.Button8.Name = "Button8"
-        Me.Button8.Size = New System.Drawing.Size(75, 23)
+        Me.Button8.Size = New System.Drawing.Size(171, 23)
         Me.Button8.TabIndex = 14
-        Me.Button8.Text = "Button8"
+        Me.Button8.Text = "Extract HVQM"
         Me.Button8.UseVisualStyleBackColor = True
         '
-        'TextBox2
+        'Button9
         '
-        Me.TextBox2.Location = New System.Drawing.Point(383, 427)
-        Me.TextBox2.Multiline = True
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(153, 112)
-        Me.TextBox2.TabIndex = 15
+        Me.Button9.Location = New System.Drawing.Point(6, 19)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(171, 23)
+        Me.Button9.TabIndex = 16
+        Me.Button9.Text = "Replace HVQM"
+        Me.Button9.UseVisualStyleBackColor = True
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.Button9)
+        Me.GroupBox5.Controls.Add(Me.Button8)
+        Me.GroupBox5.Location = New System.Drawing.Point(352, 325)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(184, 79)
+        Me.GroupBox5.TabIndex = 17
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Manage Video"
         '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(663, 678)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.Button8)
+        Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -305,10 +284,9 @@ Partial Class Form2
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents TreeView1 As System.Windows.Forms.TreeView
@@ -318,7 +296,6 @@ Partial Class Form2
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label3 As System.Windows.Forms.Label
@@ -328,11 +305,10 @@ Partial Class Form2
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents Button7 As System.Windows.Forms.Button
     Friend WithEvents Button8 As Button
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Button9 As Button
+    Friend WithEvents GroupBox5 As GroupBox
 End Class

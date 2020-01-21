@@ -3,6 +3,7 @@
 Module Module1
 
     Public pathExtractedTexture As String = My.Application.Info.DirectoryPath & "\extractedTexture\"
+    Public pathOtherContent As String = My.Application.Info.DirectoryPath & "\OtherContent\"
     Public pathCompressedTexture As String = My.Application.Info.DirectoryPath & "\compressedTexture\"
     Public pathReplacedTexture As String = My.Application.Info.DirectoryPath & "\replacedTexture\"
 
@@ -25,7 +26,9 @@ Module Module1
         If Not File.Exists(pathReplacedTexture) Then
             Directory.CreateDirectory(pathReplacedTexture)
         End If
-
+        If Not File.Exists(pathOtherContent) Then
+            Directory.CreateDirectory(pathOtherContent)
+        End If
     End Sub
 End Module
 

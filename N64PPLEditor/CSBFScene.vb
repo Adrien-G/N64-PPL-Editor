@@ -92,8 +92,8 @@ Public Class CSBFScene
                 Array.Copy(byteArray, generalSeek, arraySceneText, 0, byteArray.Length - generalSeek)
 
                 listTextScene.Add(New CSBFSceneText(arraySceneText))
-                listTextScene(index).Init()
-                generalSeek += listTextScene(index).GetSize()
+                'listTextScene(index).Init()
+                'generalSeek += listTextScene(index).GetSize()
             Next
         End If
     End Sub
@@ -112,9 +112,9 @@ Public Class CSBFScene
                 Dim arraySceneTexture(byteArray.Length - generalSeek - 1) As Byte
                 Array.Copy(byteArray, generalSeek, arraySceneTexture, 0, byteArray.Length - generalSeek)
 
-                listTextureScene.Add(New CSBFSceneText(arraySceneTexture))
-                listTextureScene(index).Init()
-                generalSeek += listTextureScene(index).GetSize()
+                'listTextureScene.Add(New CSBFSceneText(arraySceneTexture))
+                'listTextureScene(index).Init()
+                'generalSeek += listTextureScene(index).GetSize()
             Next
         End If
     End Sub
