@@ -24,9 +24,10 @@ Public Class C3FIB
 
     Public Sub OtherInit(ByVal otherByteArray1 As Byte())
         otherByteArray = otherByteArray1
-        fibNameSize = 9
+        Dim title As String = "(no Name : " & bifName & ")"
+        fibNameSize = title.Length
         ReDim fibName(fibNameSize)
-        fibName = System.Text.Encoding.UTF8.GetBytes("(no Name)")
+        fibName = System.Text.Encoding.UTF8.GetBytes(title)
     End Sub
 
     Public Sub FIBInit(ByVal byteArray As Byte())
@@ -79,6 +80,10 @@ Public Class C3FIB
             bff2childs.Add(New CBFF2(arrayBFF2))
             bff2childs.Item(index).BFF2Init()
         Next
+    End Sub
+
+    Public Sub fillRawData(ByVal data As Byte())
+        otherByteArray = data
     End Sub
 
     Public Function GetFibName() As String
@@ -149,5 +154,9 @@ Public Class C3FIB
             Return fibContainer
 
         End If
+    End Function
+
+    Friend Function GetRawData() As Byte()
+        Return otherByteArray
     End Function
 End Class
