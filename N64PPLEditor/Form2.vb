@@ -6,7 +6,6 @@ Public Class Form2
     Dim startRessourcesIndex As Integer = 0
     Dim endRessourceIndex As Integer = 0
     Dim fibStorage As CBIFList
-    Dim pathCompressedTexture As String = My.Application.Info.DirectoryPath & "\compressedTexture\"
 
 
     Private Sub Form2_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -56,7 +55,7 @@ Public Class Form2
             nameSize = fstream2.ReadByte()
 
             If nameSize = 0 Then
-                MsgBox("Impossible de trouver le nom du fichier BFF2 !" & vbCrLf & "êtes ous sur que c'est un header valide ?", MsgBoxStyle.Exclamation)
+                MsgBox("Unable to find BFF2 entry !", MsgBoxStyle.Exclamation)
             Else
                 'get title
                 Dim nameFile(nameSize - 1) As Byte
@@ -135,10 +134,10 @@ Public Class Form2
         End If
     End Sub
 
-    Private Function AskFileToUser() As Byte()
+    Private Function AskFileToUser(ByVal Optional filter As String = "ppl compressed texture (*.ppltexture)|*.ppltexture") As Byte()
         Dim openFileDialog1 As New OpenFileDialog()
         openFileDialog1.InitialDirectory = pathCompressedTexture
-        openFileDialog1.Filter = "ppl compressed texture (*.ppltexture)|*.ppltexture"
+        openFileDialog1.Filter = filter
         openFileDialog1.FilterIndex = 1
 
         If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
@@ -156,11 +155,6 @@ Public Class Form2
     Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
         Dim dataBytes As Byte() = AskFileToUser()
         fibStorage.ReplaceBFF2(TreeView1.SelectedNode.Parent.Index, TreeView1.SelectedNode.Index, dataBytes)
-        Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.GetSize())
-    End Sub
-
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-
         Label3.Text = Hex(endRessourceIndex - startRessourcesIndex - fibStorage.GetSize())
     End Sub
 
@@ -186,5 +180,15 @@ Public Class Form2
     Private Sub Button7_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button7.Click
         fibStorage.WriteAllData()
         Button7.BackColor = Color.LimeGreen
+    End Sub
+
+    Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
+        Dim dataBytes As Byte() = AskFileToUser("ppl movie (*.hvqm)|*.hvqm")
+        fibStorage.fillRawData(TreeView1.SelectedNode.Index, dataBytes)
+    End Sub
+
+    Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
+        My.Computer.FileSystem.WriteAllBytes(pathOtherContent & fibStorage.Get3FIBData(TreeView1.SelectedNode.Index).bifName, fibStorage.GetRawData(TreeView1.SelectedNode.Index), False)
+
     End Sub
 End Class
