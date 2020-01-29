@@ -45,6 +45,9 @@ Partial Class Form2
         Me.Button8 = New System.Windows.Forms.Button()
         Me.Button9 = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button10 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -265,11 +268,40 @@ Partial Class Form2
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Manage Video"
         '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(352, 439)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(197, 225)
+        Me.TextBox1.TabIndex = 19
+        '
+        'Button10
+        '
+        Me.Button10.Location = New System.Drawing.Point(352, 410)
+        Me.Button10.Name = "Button10"
+        Me.Button10.Size = New System.Drawing.Size(75, 23)
+        Me.Button10.TabIndex = 20
+        Me.Button10.Text = "Button10"
+        Me.Button10.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(433, 410)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 21
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'Form2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(663, 678)
+        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Button10)
+        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.GroupBox4)
@@ -287,6 +319,7 @@ Partial Class Form2
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents TreeView1 As System.Windows.Forms.TreeView
@@ -311,4 +344,7 @@ Partial Class Form2
     Friend WithEvents Button8 As Button
     Friend WithEvents Button9 As Button
     Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Button10 As Button
+    Friend WithEvents Button3 As Button
 End Class

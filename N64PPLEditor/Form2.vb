@@ -189,6 +189,5 @@ Public Class Form2
 
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         My.Computer.FileSystem.WriteAllBytes(pathOtherContent & fibStorage.Get3FIBData(TreeView1.SelectedNode.Index).bifName, fibStorage.GetRawData(TreeView1.SelectedNode.Index), False)
-
     End Sub
 End Class
